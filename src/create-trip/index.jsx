@@ -110,10 +110,11 @@ export default function CreateTrip() {
       <div className="my-10 flex justify-end">
         <Button
           onClick={OnGenerateTrip}
-          className="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition-all"
+          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-full shadow-lg hover:from-blue-600 hover:to-blue-700 hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:ring-4 focus:ring-blue-300 focus:outline-none"
         >
           Generate Trip
         </Button>
+
       </div>
     </div>
   );
