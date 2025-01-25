@@ -5,6 +5,7 @@ import { AI_PROMPT, SelectBudgetOptions, SelectTravelsList } from '@/constants/o
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { chatSession } from '@/service/AIModal';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   Dialog,
   DialogContent,
@@ -15,12 +16,17 @@ import {
 } from "@/components/ui/dialog"
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '@/service/firebaseConfig';
 
 
 export default function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
   const [openDailog, setOpenDailog] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (name, value) => {
     setFormData({
@@ -35,9 +41,10 @@ export default function CreateTrip() {
 
 
   const login = useGoogleLogin({
-    onSuccess: (codeResp) => console.log(codeResp),
+    onSuccess: (codeResp) => GetUserProfile(codeResp),
     onError: (error) => console.log(error)
   })
+
 
   const OnGenerateTrip = async () => {
 
@@ -53,6 +60,7 @@ export default function CreateTrip() {
       return;
     }
 
+    setLoading(true);
     const FINAL_PROMPT = AI_PROMPT
       .replace('{location}', formData?.location?.label)
       .replace('{totalDays}', formData?.noOfDays)
@@ -60,6 +68,38 @@ export default function CreateTrip() {
       .replace('{budget}', formData?.budget)
 
     const result = await chatSession.sendMessage(FINAL_PROMPT);
+
+    setLoading(false);
+    SaveAiTrip(result?.response?.text());
+  }
+
+
+  const SaveAiTrip = async (TripData) => {
+
+    setLoading(true);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const docId = Date.now().toString();
+    await setDoc(doc(db, "AITrips", docId), {
+      userSelection: formData,
+      TripData: JSON.parse(TripData),
+      userEmail: user?.email,
+      id: docId
+    });
+    setLoading(false);
+  }
+
+  const GetUserProfile = (tokenInfo) => {
+    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`, {
+      headers: {
+        Authorization: `Bearer ${tokenInfo?.access_token}`,
+        Accept: 'Application/json'
+      }
+    }).then((resp) => {
+      console.log(resp);
+      localStorage.setItem('user', JSON.stringify(resp.data));
+      setOpenDialog(false);
+      OnGenerateTrip();
+    })
   }
 
   return (
@@ -149,7 +189,9 @@ export default function CreateTrip() {
           <Button
             onClick={OnGenerateTrip}
             className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-full shadow-lg hover:from-blue-600 hover:to-blue-700 hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:ring-4 focus:ring-blue-300 focus:outline-none">
-            Generate Trip
+            {loading ?
+              <AiOutlineLoading3Quarters className='h-7 w-7 animate-spin' /> : 'Generate Trip'
+            }
           </Button>
 
         </div>
