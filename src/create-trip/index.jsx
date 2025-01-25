@@ -24,7 +24,7 @@ import { db } from '@/service/firebaseConfig';
 export default function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
-  const [openDailog, setOpenDailog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -51,7 +51,7 @@ export default function CreateTrip() {
     const user = localStorage.getItem('user');
 
     if (!user) {
-      setOpenDailog(true)
+      setOpenDialog(true)
       return;
     }
 
@@ -197,7 +197,7 @@ export default function CreateTrip() {
         </div>
       </div>
 
-      <Dialog open={openDailog}>
+      <Dialog open={openDialog}>
 
         <DialogContent>
           <DialogHeader>
