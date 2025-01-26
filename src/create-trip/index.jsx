@@ -19,6 +19,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/service/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CreateTrip() {
@@ -28,6 +29,7 @@ export default function CreateTrip() {
 
   const [loading, setLoading] = useState(false);
 
+  const navigate=useNavigate();
   const handleInputChange = (name, value) => {
     setFormData({
       ...formData,
@@ -68,6 +70,7 @@ export default function CreateTrip() {
       .replace('{budget}', formData?.budget)
 
     const result = await chatSession.sendMessage(FINAL_PROMPT);
+    // console.log("--",result?.response?.text());
 
     setLoading(false);
     SaveAiTrip(result?.response?.text());
@@ -81,11 +84,12 @@ export default function CreateTrip() {
     const docId = Date.now().toString();
     await setDoc(doc(db, "AITrips", docId), {
       userSelection: formData,
-      TripData: JSON.parse(TripData),
+      tripData: JSON.parse(TripData),
       userEmail: user?.email,
       id: docId
     });
     setLoading(false);
+    navigate('/view-trip/'+docId)
   }
 
   const GetUserProfile = (tokenInfo) => {
