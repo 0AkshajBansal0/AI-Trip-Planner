@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner';
 import InfoSection from '../components/InfoSection';
+import Hotels from '../components/Hotels';
 
 const Viewtrip = () => {
 
@@ -28,7 +29,7 @@ const Viewtrip = () => {
   return (
     <div className='pd-12 md:px-25 lg:px-44 xl:px-56'>
             <InfoSection trip={trip}/>
-        {/*Recommended Hotels*/}
+            <Hotels trip={trip}/>
 
         {/*Daily Plan*/}
 
