@@ -52,8 +52,8 @@ export const SelectBudgetOptions = [
 
   export const AI_PROMPT = `
   Generate a travel plan for the destination: {location} for {totalDays} days. 
-  Traveler type: {traveler}, with a {budget} budget. 
-  Provide a list of hotel options including the name, address, and the most recent image URL (ensure the URL is working), geo coordinates, rating, and descriptions. 
-  Suggest a daily itinerary with place names, details, image URLs, geo coordinates, ticket pricing, ratings, and travel time for each location for {totalDays} days, including the best time to visit. 
+  Traveler type: {traveler}, with a {budget} budget (check the budget accurately). 
+  Provide a list of hotel options including the name, address, and the most recent image URL (ensure the URL is working), geo coordinates, rating, their pricing (in ruppees ₹, per night and mention it in like ₹... per night..) and descriptions. 
+  Suggest a daily itinerary with place names, details, image URLs, geo coordinates, ticket pricing (in rupees), ratings, and travel time for each location for {totalDays} days, including the best time to visit (a proper time range in am pm format). 
   Output in JSON format.
 `;
