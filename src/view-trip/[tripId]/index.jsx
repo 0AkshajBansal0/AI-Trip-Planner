@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import InfoSection from '../components/InfoSection';
 import Hotels from '../components/Hotels';
 import PlacesToVisit from '../components/PlacesToVisit';
+import Footer from '../components/Footer';
 
 const Viewtrip = () => {
 
@@ -32,7 +33,7 @@ const Viewtrip = () => {
             <InfoSection trip={trip}/>
             <Hotels trip={trip}/>
             <PlacesToVisit trip={trip}/>
-        {/*Footer*/}
+            <Footer trip={trip}/>
     </div>
   )
 }
