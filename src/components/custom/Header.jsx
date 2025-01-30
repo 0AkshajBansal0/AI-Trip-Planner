@@ -50,14 +50,19 @@ function Header() {
 
   return (
     <div className="p-3 shadow-sm flex justify-between items-center px-5">
+      <a href="/">
       <img
         src="/TripPlanner.png"
         alt="Logo"
         style={{ height: '50px', width: 'auto' }}
       />
+      </a>
       <div>
         {user ?
           <div className='flex items-center gap-3'>
+            <a href='/create-trip'>
+              <Button variant="outline" className="rounded-full">+ Create Trip</Button>
+            </a>
             <a href='/my-trips'>
               <Button variant="outline" className="rounded-full">My Trips</Button>
             </a>
