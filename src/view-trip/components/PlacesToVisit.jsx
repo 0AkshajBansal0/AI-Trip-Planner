@@ -3,17 +3,17 @@ import PlaceCardItem from './PlaceCardItem'
 
 const PlacesToVisit = ({ trip }) => {
   return (
-    <div>
-      <h2 className="font-bold text-lg">Places To Visit</h2>
+    <div className="px-4 sm:px-8 lg:px-16 py-8">
+      <h2 className="font-bold text-lg sm:text-xl md:text-2xl mb-6">Places To Visit</h2>
 
       <div>
         {trip?.tripData?.dailyItinerary?.map((item, index) => (
-          <div className='mt-5'>
-            <h2 className='font-medium text-lg'>{item.day}</h2>
-            <div className='grid md:grid-cols-2 gap-5'>
+          <div key={index} className="mt-8">
+            <h2 className="font-medium text-lg sm:text-xl text-gray-800">{item.day}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
               {item.plan.map((place, index) => (
-                <div className=''>
-                  <h2 className='font-medium text-sm text-orange-600'>{item.bestTime}</h2>
+                <div key={index} className="transition-transform transform hover:scale-105">
+                  <h2 className="font-medium text-sm text-orange-600">{place.bestTime}</h2>
                   <PlaceCardItem place={place} />
                 </div>
               ))}
