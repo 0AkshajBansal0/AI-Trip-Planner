@@ -58,13 +58,15 @@ function Header() {
       <div>
         {user ?
           <div className='flex items-center gap-3'>
-            <Button variant="outline" className="rounded-full">My Trips</Button>
+            <a href='/my-trips'>
+              <Button variant="outline" className="rounded-full">My Trips</Button>
+            </a>
             <Popover>
               <PopoverTrigger>
-              <img src={user?.picture} className='h-[35px] w-[35px] rounded-full' />
+                <img src={user?.picture} className='h-[35px] w-[35px] rounded-full' />
               </PopoverTrigger>
               <PopoverContent>
-                <h2 className='cursor-pointer' onClick={()=>{
+                <h2 className='cursor-pointer' onClick={() => {
                   googleLogout();
                   localStorage.clear();
                   window.location.reload();
@@ -74,7 +76,7 @@ function Header() {
 
           </div>
           :
-          <Button onClick={()=>setOpenDialog(true)}>Sign In</Button>
+          <Button onClick={() => setOpenDialog(true)}>Sign In</Button>
         }
       </div>
       <Dialog open={openDialog}>
