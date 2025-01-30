@@ -1,19 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import HotelCardItem from './HotelCardItem'
+import React from 'react';
+import HotelCardItem from './HotelCardItem';
 
 const Hotels = ({ trip }) => {
     return (
-        <div>
-            <h2 className='font-bold text-xl mt-5'>Hotel Recommendation</h2>
-
-            <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5'>
+        <div className='mt-5'>
+            <h2 className='font-bold text-2xl mb-6 text-center md:text-left'>
+                Hotel Recommendations
+            </h2>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
                 {trip?.tripData?.hotelOptions?.map((hotel, index) => (
-                    <HotelCardItem hotel={hotel}/>
+                    <HotelCardItem key={index} hotel={hotel} />
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Hotels
+export default Hotels;
