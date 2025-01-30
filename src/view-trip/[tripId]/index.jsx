@@ -1,7 +1,7 @@
 import { db } from '@/service/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import InfoSection from '../components/InfoSection';
 import Hotels from '../components/Hotels';
@@ -9,33 +9,64 @@ import PlacesToVisit from '../components/PlacesToVisit';
 import Footer from '../components/Footer';
 
 const Viewtrip = () => {
+    const { tripId } = useParams();
+    const [trip, setTrip] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const {tripId}=useParams();
-    const [trip,setTrip]=useState();
     useEffect(() => {
-        tripId&&GetTripData();
-    }, [tripId])
-    const GetTripData=async()=>{
-        const docRef=doc(db,'AITrips',tripId);
-        const docSnap=await getDoc(docRef)
+        if (tripId) {
+            GetTripData();
+        }
+    }, [tripId]);
 
-        if(docSnap.exists()){
-            console.log("Document:",docSnap.data());
-            setTrip(docSnap.data())
+    const GetTripData = async () => {
+        setLoading(true);
+        try {
+            const docRef = doc(db, 'AITrips', tripId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                setTrip(docSnap.data());
+            } else {
+                toast('No trip Found!');
+            }
+        } catch (error) {
+            console.error('Error fetching trip data:', error);
+            toast('Failed to load trip data!');
+        } finally {
+            setLoading(false);
         }
-        else{
-            console.log("No such Document");
-            toast('No trip Found!')
-        }
+    };
+
+    if (loading) {
+        return <div className="text-center py-12 text-xl">Loading trip details...</div>;
     }
-  return (
-    <div className='pd-12 md:px-25 lg:px-44 xl:px-56'>
-            <InfoSection trip={trip}/>
-            <Hotels trip={trip}/>
-            <PlacesToVisit trip={trip}/>
-            <Footer trip={trip}/>
-    </div>
-  )
-}
 
-export default Viewtrip
+    return (
+        <div className="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 py-8">
+            <div className="space-y-10">
+                {/* Info Section */}
+                <div className="mb-10">
+                    <InfoSection trip={trip} />
+                </div>
+
+                {/* Hotels Section */}
+                <div className="mb-10">
+                    <Hotels trip={trip} />
+                </div>
+
+                {/* Places to Visit Section */}
+                <div className="mb-10">
+                    <PlacesToVisit trip={trip} />
+                </div>
+
+                {/* Footer */}
+                <div>
+                    <Footer trip={trip} />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Viewtrip;
