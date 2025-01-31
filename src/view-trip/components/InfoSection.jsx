@@ -26,7 +26,7 @@ function InfoSection({ trip }) {
         src={photoUrl ? photoUrl : "/placeholder.webp"}
         className="h-[340px] w-full object-cover rounded-xl transform hover:scale-105 transition-transform duration-300"
       />
-      <div className="p-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg -mt-10 relative z-10 shadow-xl">
+      <div className="p-4 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg -mt-10 relative z-10 shadow-xl">
         <div className="text-white flex flex-col sm:flex-row justify-between items-start sm:items-center sm:gap-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <h2 className="font-bold text-2xl sm:text-3xl">{trip?.userSelection?.location?.label}</h2>
