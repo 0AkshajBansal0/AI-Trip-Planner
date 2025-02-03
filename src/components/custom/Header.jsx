@@ -75,11 +75,13 @@ function Header() {
                 <img src={user?.picture} className='h-9 w-9 rounded-full' />
               </PopoverTrigger>
               <PopoverContent>
-                <h2 className='cursor-pointer' onClick={() => {
-                  googleLogout();
-                  localStorage.clear();
-                  window.location.reload();
-                }}>Logout</h2>
+                <a href='/'>
+                  <h2 className='cursor-pointer' onClick={() => {
+                    googleLogout();
+                    localStorage.clear();
+                    window.location.reload();
+                  }}>Logout</h2>
+                </a>
               </PopoverContent>
             </Popover>
           </div>
@@ -89,7 +91,7 @@ function Header() {
       </div>
 
       {/* Dialog for Google Sign-In */}
-      <Dialog open={openDialog}>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogDescription>
@@ -134,11 +136,11 @@ function Header() {
                 <a href='/my-trips'>
                   <li>View Trips</li>
                 </a>
-                <li><h2 className='cursor-pointer' onClick={() => {
+                <li><a href='/'><h2 className='cursor-pointer' onClick={() => {
                   googleLogout();
                   localStorage.clear();
                   window.location.reload();
-                }}>Logout</h2></li>
+                }}>Logout</h2></a></li>
               </ul>
             </div>
           </motion.div>
