@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen px-6 text-center space-y-10">
+    <section className="flex flex-col items-center justify-center min-h-screen px-6 text-center space-y-10 lg:py-10 mg:py-10">
 
       {/* Animated Heading with Slide-up and Fade-in */}
       <motion.h1 
