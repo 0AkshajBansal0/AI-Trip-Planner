@@ -23,11 +23,18 @@ function Header() {
 
   // Navbar responsive state
   const [open, setOpen] = useState(false);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
-    console.log(user);
+    const handleUserLogin = () => {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    };
+    // Listen for the login event
+    window.addEventListener("userLoggedIn", handleUserLogin);
+    return () => {
+      window.removeEventListener("userLoggedIn", handleUserLogin);
+    };
   }, []);
 
   // Google Login
