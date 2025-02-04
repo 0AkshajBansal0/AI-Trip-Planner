@@ -95,6 +95,8 @@ export default function CreateTrip() {
       console.log(resp);
       localStorage.setItem('user', JSON.stringify(resp.data));
       setOpenDialog(false);
+      // Dispatch a custom event when user logs in
+      window.dispatchEvent(new Event("userLoggedIn"));
       OnGenerateTrip();
     });
   };
