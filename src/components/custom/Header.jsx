@@ -117,9 +117,12 @@ function Header() {
       </Dialog>
 
       {/* Navbar responsive toggle */}
-      <div className='md:hidden' onClick={() => setOpen(!open)}>
-        <MdMenu className='text-4xl cursor-pointer' />
-      </div>
+      {user && (
+        <div className='md:hidden' onClick={() => setOpen(!open)}>
+          <MdMenu className='text-4xl cursor-pointer' />
+        </div>
+      )}
+
 
       {/* Mobile sidebar */}
       <AnimatePresence mode="wait" open={open}>
